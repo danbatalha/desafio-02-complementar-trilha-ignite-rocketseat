@@ -27,6 +27,14 @@ interface ContentProps {
 export function Content({ selectedGenreId, selectedGenre }: ContentProps) {
   const [movies, setMovies] = useState<MovieProps[]>([]);
 
+  useEffect(() => {
+    api
+      .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
+      .then((response) => {
+        setMovies(response.data);
+      });
+  }, [selectedGenreId]);
+
   return (
     <div className="container">
       <header>
